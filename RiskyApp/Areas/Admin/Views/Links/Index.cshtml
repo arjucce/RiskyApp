@@ -1,0 +1,41 @@
+﻿@model List<RiskyApp.Models.VM.LinkListVM>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<div class="d-flex">
+    <div class="align-content-end">
+        <a asp-action="Upsert" class="btn btn-primary">Create New Link</a>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>           
+             <th>
+                Department Name
+            </th>
+            <th>
+                Link
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>          
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>                
+                <a href="@item.DataLink">@item.DataLink</a>
+            </td>
+            <td>                
+                <a asp-action="Delete" asp-route-id="@item.Id"><img src="~/lib/image/delete.png" style="width:30px;height:30px;"></a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

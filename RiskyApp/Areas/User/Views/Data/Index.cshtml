@@ -1,0 +1,86 @@
+﻿@model List<RiskyApp.Models.VM.DataVM>
+
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row"><h1 class="text-info"><label>@ViewBag.DepName</label></h1></div>
+<div class="row">
+    <form asp-action="Upload" method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="">
+            <label class="control-label text-info">Process Date</label>
+            <input type="date" name="dt" id="dt" class="form-control" />
+        </div>
+        <div class="">
+            <div class="card">
+                <div class="card-header">Upload</div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <table id="input-table" class="table">
+                            <thead>
+                                <tr>
+                                    <th>Operation Title</th>
+                                    <th>Upload File</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int j = 0; j < Model.Count; j++)
+                                {
+                                    @if (Model[j].OperationType == "Upload")
+                                    {
+                                        <tr>
+                                            <td>@Html.TextBox("dps[" + @j + "].OperationName", Model[j].OperationName,  new { @class = "form-control", @readonly = "readonly" })</td>
+                                            <td><input type="file" class="form-control" name="files" multiple /></td>
+                                            <td>@Html.Hidden("Download", "Download", new { Format = @Model[j].FormatUrl, @class = "btn btn-primary" }) </td>
+                                            <td>@Html.Hidden("dps[" + @j + "].DepartmentID", Model[j].DepartmentID,  new { @class = "form-control hidden" })</td>
+                                            <td>@Html.Hidden("dps[" + @j + "].OperationType", Model[j].OperationType,  new { @class = "form-control hidden" })</td>
+                                            <td>@Html.Hidden("dps[" + @j + "].CategoryId", Model[j].CategoryId,  new { @class = "form-control hidden" })</td>
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td>@Html.TextBox("dps[" + @j + "].OperationName", Model[j].OperationName,  new { @class = "form-control", @readonly = "readonly" })</td>
+                                            <td>@Html.TextBox("dps[" + @j + "].Amount", Model[j].Amount,  new {@class = "form-control" })</td>
+                                            <td> @*@Html.ActionLink("Download", "Download", new { Format = @Model[j].FormatUrl.ToString(), @class = "btn btn-primary" })*@ </td>
+                                            <td>@Html.Hidden("dps[" + @j + "].DepartmentID", Model[j].DepartmentID,  new { @class = "form-control hidden" })</td>
+                                            <td>@Html.Hidden("dps[" + @j + "].OperationType", Model[j].OperationType,  new { @class = "form-control hidden" })</td>
+                                            <td>@Html.Hidden("dps[" + @j + "].CategoryId", Model[j].CategoryId,  new { @class = "form-control hidden" })</td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="">
+            <input type="submit" value="Submit" class="btn btn-primary form-control" />
+        </div>
+        <br />
+        <div class="row">
+            <p class="text-info">Download Format</p>
+            @foreach (var item in Model)
+            {
+                @if (item.OperationType == "Upload")
+                {                                        
+                    <ul>
+                        <li>@item.OperationName || @Html.ActionLink("Download", "Download", new { Format = item.FormatUrl })</li>
+                    </ul>
+                }
+            }
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+       await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+}

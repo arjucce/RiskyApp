@@ -1,0 +1,70 @@
+﻿@model RiskyApp.Models.VM.EmailVM
+@{
+    ViewData["Title"] = "Email";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="form-group row">
+    <form asp-action="EmailSend">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row">
+            <label class="control-label text-info">Select Department</label>
+            @Html.DropDownListFor(m => m.DepartmentId, Model.DepartmentList, "Please Select Department", new { @class = "form-control" })
+            <span asp-validation-for="DepartmentId" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <label class="control-label text-info">Select Operation Category</label>
+            @Html.DropDownListFor(m => m.CategoryId, Model.CategoryList, "Please Select Operation Category", new { @class = "form-control" })
+            <span asp-validation-for="CategoryId" class="text-danger"></span>
+        </div>
+         <div class="form-group row">
+            <label class="control-label text-info">Mail Subject</label>
+            <input type="text" name="mailSubject" id="mailSubject" value="Information regarding" class="form-control" />
+        </div>
+
+        <div class="form-group row">
+            <div class="col row">
+                <label class="control-label text-info">Period From</label>
+                @Html.DropDownListFor(m => m.PeriodFrom, Model.MonthList, "Please Select", new { @class = "form-control" })
+                <span asp-validation-for="PeriodFrom" class="text-danger"></span>
+            </div>
+            <div class="col row">
+                <label class="control-label text-info">Period To</label>
+                @Html.DropDownListFor(m => m.PeriodTo, Model.MonthList, "Please Select", new { @class = "form-control" })
+                <span asp-validation-for="PeriodTo" class="text-danger"></span>
+            </div>            
+            <div class="col row">
+                <label class="control-label text-info">For the year</label>
+                @Html.DropDownListFor(m => m.Years, Model.YearList, "Please Select Year", new { @class = "form-control" })
+                <span asp-validation-for="Years" class="text-danger"></span>
+            </div>            
+        </div>
+
+        @*<div class="form-group row vertical-allign">
+            <label class="control-label text-info">Select Month</label>
+            @foreach (var item in Model.Months)
+            {
+                <div style="padding-right:15px;margin-left:200px;">
+                    <input id="@item.Name" type="checkbox" name="months" value="@item.Name" />
+                    <label for="@item.Name">@item.Name</label>
+                </div>
+            }
+        </div>*@
+        <div class="form-group row">
+            <label class="control-label text-info">On or before</label>
+            <input type="date" name="dt" id="dt" class="form-control" />
+        </div>
+        <br />
+        <div class="form-group row">
+            <input type="submit" value="Send Mail" class="btn btn-primary form-control" />
+        </div>
+    </form>
+</div>
+
+
+
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+}

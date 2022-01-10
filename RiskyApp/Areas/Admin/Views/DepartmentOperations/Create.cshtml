@@ -1,0 +1,55 @@
+﻿@model RiskyApp.Models.VM.DepartmentOperationVM
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4 class="text-info">Operational Details</h4>
+<hr />
+<div class="row">
+    <form asp-action="Create" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row">
+            <div class="col">
+                <label class="control-label text-info">Department List</label>
+                @Html.DropDownListFor(m => m.DepartmentID, Model.DepartmentList, "Select Department", new { @class = "form-control" })                
+                <span asp-validation-for="DepartmentID" class="text-danger"></span>
+            </div>
+            <div class="col">
+                <label class="control-label text-info">Operation Type</label>
+                @Html.DropDownListFor(m => m.OperationTypeID, Model.OperationTypeList, "Select Operation Type", new { @class = "form-control" })
+                <span asp-validation-for="OperationTypeID" class="text-danger"></span>
+            </div>           
+        </div>
+        <div class="form-group row">
+            <div class="col">
+                <label class="control-label text-info">Upload Format</label>                
+                <input type="file" class="form-control" name="files" multiple/>
+            </div>
+            <div class="col">
+                <label class="control-label text-info">Operation Category</label>
+                @Html.DropDownListFor(m => m.OperationCategoryID, Model.CategoryList, "Select Operation Category", new { @class = "form-control" })
+                <span asp-validation-for="OperationCategoryID" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col">
+                <label class="control-label text-info">Operation Name</label>
+                <input asp-for="DepartmentOperations.OperationName" class="form-control" />
+                <span asp-validation-for="DepartmentOperations.OperationName" class="text-danger"></span>
+            </div>
+        </div>
+        <br />
+        <div class="form-group row">
+            <div class="col"><input type="submit" value="Create" class="btn btn-primary form-control" /></div>
+            <div class="col"><a class="btn btn-success form-control" asp-action="Index">Back to List</a></div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+}

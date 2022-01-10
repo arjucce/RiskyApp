@@ -1,0 +1,72 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<br />
+<br />
+<form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="card">
+        <div class="card-header">Registration</div>
+        <div class="card-body">
+            <div class="form-group">
+                <div class="col">
+                    <div class="form-floating">
+                        <input asp-for="Input.Name" class="form-control" autocomplete="username" aria-required="true" />
+                        <label asp-for="Input.Name"></label>
+                        <span asp-validation-for="Input.Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-floating">
+                        <input asp-for="Input.Designation" class="form-control" autocomplete="username" aria-required="true" />
+                        <label asp-for="Input.Designation"></label>
+                        <span asp-validation-for="Input.Designation" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-floating">
+                        <input asp-for="Input.Department" class="form-control" autocomplete="username" aria-required="true" />
+                        <label asp-for="Input.Department"></label>
+                        <span asp-validation-for="Input.Department" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-floating">
+                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
+                    <label asp-for="Input.Email"></label>
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-floating">
+                    <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" />
+                    <label asp-for="Input.Password"></label>
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-floating">
+                    <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
+                    <label asp-for="Input.ConfirmPassword"></label>
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="radio" name="rdUserRole" value="@RiskyApp.Models.Utility.Admin" /> @RiskyApp.Models.Utility.Admin
+                <input type="radio" name="rdUserRole" value="@RiskyApp.Models.Utility.Manager" checked /> @RiskyApp.Models.Utility.Manager
+            </div>
+            <div class="form-group">
+                <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}

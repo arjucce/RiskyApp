@@ -1,0 +1,52 @@
+﻿@model IEnumerable<RiskyApp.Models.DepartmentOperation>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>            
+            <th>
+                Department Name
+            </th>
+            <th>                
+                Category Name
+            </th>
+            <th>
+                Operation Type Name
+            </th>
+            <th>
+                Operation Name
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in (IEnumerable<RiskyApp.Models.VM.DepartmentOperationVM>)ViewBag.dpVM) {
+        <tr>                       
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartmentName)
+            </td>
+             <td>
+                @Html.DisplayFor(modelItem => item.OperationCategory)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OperationTypeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OperationName)
+            </td>
+            <td>                
+                <a asp-action="Delete" asp-route-id="@item.DepartmentOperationID"><img src="~/lib/image/delete.png" style="width:30px;height:30px;"></a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

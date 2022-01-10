@@ -1,0 +1,33 @@
+﻿@model IEnumerable<RiskyApp.Models.VM.EmailMgmtVM>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p><a class="btn btn-primary" asp-action="Create">Create New</a></p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Department</th>                        
+            <th>To</th>
+            <th>Cc</th>
+            <th>Operation Category</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>@item.DataID</td>
+            <td>@item.DepartmentName</td>
+            <td>@item.EmailTo</td>
+            <td>@item.EmailCC</td>
+            <td>@item.CategoryName</td>            
+            <td><a asp-action="Delete" asp-route-id="@item.DataID"><img src="~/lib/image/delete.png" style="width:30px;height:30px;"></a></td>
+        </tr>
+}
+    </tbody>
+</table>
+
